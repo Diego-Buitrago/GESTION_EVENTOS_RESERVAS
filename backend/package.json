@@ -1,0 +1,28 @@
+{
+  "name": "backend-talentopcmejia",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "fs-extra": "^10.1.0",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.2.5",
+    "query-string": "^7.1.1",
+    "save": "^2.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
