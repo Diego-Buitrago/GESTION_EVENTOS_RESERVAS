@@ -8,15 +8,11 @@ const getEvents = async (req, res) => {
     try {  
       const order = sortOrder === 1 ? "ASC" : "DESC";
   
-      const whereConditions = [];
-  
-      const whereClause = whereConditions.length > 0 ? `WHERE ${whereConditions.join(" AND ")}` : "";
-  
-      const [resultsQuery] = await connection.execute(`SELECT id, nombre, descripcion, fecha, cupo FROM eventos ${whereClause} GROUP BY id ORDER BY ${sortField} ${order} LIMIT ${rows} OFFSET ${first}`);
+      const [resultsQuery] = await connection.execute(`SELECT id, nombre, descripcion, fecha, cupo FROM eventos GROUP BY id ORDER BY ${sortField} ${order} LIMIT ${rows} OFFSET ${first}`);
   
       let total = 0;
       if (first === 0) {
-        const [resultsTotal] = await connection.execute(`SELECT COUNT(DISTINCT id) total FROM eventos ${whereClause}`);
+        const [resultsTotal] = await connection.execute(`SELECT COUNT(DISTINCT id) total FROM eventos`);
         total = resultsTotal.total;
       }
   
@@ -34,7 +30,7 @@ const saveEvent = async (req, res) => {
 
     try {
   
-      const [[resultsQuery]] = await connection.execute(`SELECT id FROM eventos WHERE nombre = ? LIMIT 1`, [nombre], connection);
+      const [[resultsQuery]] = await connection.execute(`SELECT id FROM eventos WHERE nombre = ? LIMIT 1`, [nombre]);
   
       if (resultsQuery) return res.status(400).json({ mensaje: `Ya existe un evento con el nombre ${nombre}. Verificar` });
   

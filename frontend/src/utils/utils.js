@@ -3,6 +3,7 @@ import moment from "moment"
 export const formDate = (date) => {
     return new Date(moment(date).format("YYYY"), moment(date).format("MM") - 1, moment(date).format("DD"));
 };
+
 export const propsDataTable = {
     showGridlines: true,
     stripedRows: true,
@@ -15,7 +16,6 @@ export const propsDataTable = {
     currentPageReportTemplate: "{first} a {last} de {totalRecords}",
     rowsPerPageOptions: [5, 10, 20, 50],
 };
-
 
 export const propsCalendar = {
     showButtonBar: true,
@@ -31,9 +31,15 @@ export const propsSelect = {
     resetFilterOnHide: true,
     emptyMessage: "No Hay Datos",
     emptyFilterMessage: "No Hay Datos",
-    optionLabel: "nombre",
-    filterBy: "nombre",
-    optionValue: "id",
+    optionLabel: "value",
+    filterBy: "value",
+    optionValue: "value",
     filter: true,
     showClear: true,
 };
+
+export const statusReservation = [  
+    { value: "pendiente"  },
+    { value: "confirmada"  },
+    { value: "cancelada" }
+]    

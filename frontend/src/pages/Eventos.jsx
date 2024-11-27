@@ -8,11 +8,15 @@ import { Button } from 'primereact/button';
 import { ConfirmPopup, confirmPopup } from "primereact/confirmpopup";
 // COMPONENTES
 import { DialogEvent } from '../components/events/DialogEvent';
+import { Reservations } from '../components/events/Reservations';
 // UTILS
 import { propsDataTable } from '../utils/utils';
 import { axiosApi } from '../api/axiosApi';
 
 const columnsConfig = [
+    {
+        field: "expander", expander: true, style: { flexGrow: 1, flexBasis: "3rem", minWidth: "3rem", maxWidth: "3rem" }
+    },
     {
         field: "nombre", header: "Nombre", sortable: true, style: { flexGrow: 1, flexBasis: "10rem", minWidth: "20rem" }
     },
@@ -40,16 +44,17 @@ const Eventos = () => {
         sortField: "nombre",
         sortOrder: 1,
     });
-     // VENTANA NUEVO EVENTO
-     const [visible, setVisible] = useState(false);
-     const [item, setItem] = useState(null);
+    // VENTANA NUEVO EVENTO
+    const [visible, setVisible] = useState(false);
+    const [item, setItem] = useState(null);
+    const [expandedRows, setExpandedRows] = useState(null);
 
     useEffect(() => {
         setLoading(true);
 
         const params = {...pagination}
 
-        axiosApi.get('/api/get_events', { params: params })
+        axiosApi.get('/api/eventos:', { params: params })
         .then(({ data }) => {
             const { results, total } = data;
             setLoading(false);
@@ -68,7 +73,7 @@ const Eventos = () => {
 
     const deleteEvent = async (id) => {
         try {
-            const { data } = await axiosApi.delete('api/delete_event', { params: {id} });
+            const { data } = await axiosApi.delete('api/eventos', { params: {id} });
 
             showSuccess(data.mensaje);
             setTotalRecords(totalRecords - 1);
@@ -88,11 +93,9 @@ const Eventos = () => {
     }, [totalRecords])
 
     const updateItem = useCallback((item) => {
-        console.log(item)
         setData(prev => {
             const _data = [...prev];
             const index = _data.findIndex((x) => x.id === item.id);
-            console.log({_data})
             _data[index] = item;
             return _data;
         });
@@ -145,7 +148,7 @@ const Eventos = () => {
     ), []);
 
     return (
-        <div style={{ marginTop: 13 }}>
+        <div className='mt-3'>
             <ConfirmPopup />
             {
                 visible && (
@@ -172,6 +175,9 @@ const Eventos = () => {
                     sortField={pagination.sortField}
                     onPage={(event) => setPagination((prev) => ({ ...prev, rows: event.rows, first: event.first }))}
                     onSort={(e) => setPagination((prev) => ({ ...prev, sortField: e.sortField, sortOrder: e.sortOrder }))}
+                    expandedRows={expandedRows}
+                    onRowToggle={(e) => setExpandedRows(e.data)}
+                    rowExpansionTemplate={({ id }) => <Reservations idEvento={id} />}
                 >
                     {
                         columnsConfig.map(props => <Column key={props.field} {...props} />)

@@ -23,12 +23,12 @@ export const DialogEvent = ({ item=null, onClose, addItem, updateItem }) => {
         cupo: item?.cupo || ""
     };
 
-    const { showSuccess, showInfo, showError } = useContext(ToastContext);
+    const { showSuccess, showError } = useContext(ToastContext);
     const { register, handleSubmit, watch, reset, formState: { errors }, } = useForm({ defaultValues });
 
     const saveEvent = async (values) => {
         try {
-            const { data } = await axiosApi.post('/api/save_event', values);
+            const { data } = await axiosApi.post('/api/eventos:', values);
             showSuccess(data.mensaje);            
             addItem({...values, id: data.id, fecha: moment(values.fecha).format("YYYY-MM-DD")});
             onClose()
@@ -44,7 +44,7 @@ export const DialogEvent = ({ item=null, onClose, addItem, updateItem }) => {
 
     const updateEvent = async (values) => {
         try {
-            const { data } = await axiosApi.put('/api/update_event', {...values, id: item.id });
+            const { data } = await axiosApi.put('/api/eventos', {...values, id: item.id });
             showSuccess(data.mensaje);            
             updateItem({...values, id: item.id, fecha: moment(values.fecha).format("YYYY-MM-DD")});
             onClose()

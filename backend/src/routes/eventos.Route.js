@@ -3,9 +3,9 @@ const { getEvents, saveEvent, updateEvent, deleteEvent } = require("../controlle
 
 const router = express.Router();
 
-router.get("/get_events", getEvents);
-router.post("/save_event", saveEvent);
-router.put("/update_event", updateEvent);
-router.delete("/delete_event", deleteEvent);
+router.get("/eventos:", getEvents);
+router.post("/eventos:", saveEvent);
+router.put("/eventos", updateEvent);
+router.delete("/eventos", deleteEvent);
 
 module.exports = router
