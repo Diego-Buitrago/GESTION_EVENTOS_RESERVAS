@@ -6,7 +6,7 @@ import { Menu } from 'primereact/menu';
 
 const items = [
     { label: 'Eventos', icon: 'pi pi-calendar-clock', url: '/' },
-    { label: 'Reservas', icon: 'pi pi-calendar-plus', url: '/pagina2' }
+    { label: 'Reservas', icon: 'pi pi-calendar-plus', url: '/reservas' }
 ];
 
 const Layout = () => {
@@ -28,7 +28,7 @@ const Layout = () => {
             />
 
             {/* Contenido de la página */}
-            <div style={{ padding: '2rem', marginLeft: visible ? '18rem' : '0' }}>
+            <div style={{ padding: '3rem', marginLeft: visible ? '12rem' : '0' }}>
                 <Outlet />
             </div>
         </div>
