@@ -39,9 +39,9 @@ const saveEvent = async (req, res) => {
   
       const {rows: rows2 } = await client.query(`INSERT INTO eventos (nombre, descripcion, fecha, cupo) VALUES($1,$2,$3,$4) RETURNING id`, [nombre, descripcion, fecha, cupo]);
       
-      if (!rows2[0].id > 0) return res.status(400).json({ mensaje: "Ocurrió un error al crear el evento en base de datos" });
+      if (!rows2[0]?.id > 0) return res.status(400).json({ mensaje: "Ocurrió un error al crear el evento en base de datos" });
 
-      res.status(200).json({ mensaje: `Evento ${nombre} creado correctamente`, id: rows2[0].id });
+      res.status(200).json({ mensaje: `Evento ${nombre} creado correctamente`, id: rows2[0]?.id || null});
    
     } catch (error) {
       console.log(error);
