@@ -12,6 +12,7 @@ import { Reservations } from '../components/events/Reservations';
 // UTILS
 import { propsDataTable } from '../utils/utils';
 import { axiosApi } from '../api/axiosApi';
+import moment from 'moment';
 
 const columnsConfig = [
     {
@@ -24,7 +25,8 @@ const columnsConfig = [
         field: "descripcion", header: "Descripción", sortable: true, style: { flexGrow: 1, flexBasis: "15rem", minWidth: "15rem" }
     },
     {
-        field: "fecha", header: "Fecha", sortable: true, style: { flexGrow: 1, flexBasis: "6rem", minWidth: "6rem" }
+        field: "fecha", header: "Fecha", sortable: true, style: { flexGrow: 1, flexBasis: "6rem", minWidth: "6rem" },
+        body: ({ fecha }) => moment(fecha).format("YYYY-MM-DD HH:mm")
     },
     {
         field: "cupo", header: "Cupo", sortable: true, style: { flexGrow: 1, flexBasis: "5rem", minWidth: "5rem" }

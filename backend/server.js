@@ -11,6 +11,9 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors());
 
+// Importar rutas
+app.use("/api", require('./src/routes/eventos.Route'));
+app.use("/api", require('./src/routes/reservas.Route'));
 
 // Sirve archivos estáticos de React
 app.use("/", express.static(path.join(__dirname, "../frontend/dist")));
@@ -19,10 +22,6 @@ app.use("/", express.static(path.join(__dirname, "../frontend/dist")));
 app.get('*', (_req, res) => {
    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
 });
-
-// Importar rutas
-app.use("/api", require('./src/routes/eventos.Route'));
-app.use("/api", require('./src/routes/reservas.Route'));
 
 app.listen(app.get('port'), () => {
    console.log(`Servidor conectado en el puerto ${app.get('port')}`);
